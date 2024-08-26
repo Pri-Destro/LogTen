@@ -5,8 +5,13 @@ const emailSchema = zod.string().email();
 const pwdSchema = zod.string().min(8);
 
 
-export function SchemaCheck(name, email, password){
-    const nameRes = nameSchema.safeParse();
-    const emailRes = emailSchema.safeParse();
-    const pwdRes = pwdSchema.safeParse();
+export function SchemaCheck(fname,lname, email, password){
+    const fnameRes = nameSchema.safeParse(fname);
+    const lnameRes = nameSchema.safeParse(lname);
+    const emailRes = emailSchema.safeParse(email);
+    const pwdRes = pwdSchema.safeParse(password);
+
+    // if (nameRes.success){
+        
+    // }
 }
