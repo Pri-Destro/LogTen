@@ -1,10 +1,11 @@
 const express = require('express')
 const cors = require('cors')
+const {signupValidation} = require('./middlewares/validation')
 
-// import {SchemaCheck} from './zod'
+const bcrypt = require('bcrypt')
+
 const PORT = 3000;
 
-// const cors = cors();
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -14,14 +15,7 @@ app.get('/',(req,res)=>{
     res.send("hello world");
 })
 
-app.post("/register",(req,res)=>{
-    
-    console.log(req.body);
-
-    res.json({
-        status : 'ok'
-    });
-})
+app.post("/register",signupValidation,register)
 
 app.listen(PORT,() => {
 
