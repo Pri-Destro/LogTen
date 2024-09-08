@@ -1,6 +1,7 @@
 import {Card} from './heroCard'
 import {useState} from 'react'
 import axios from 'axios'
+import Captcha from './captcha'
 
 
 export function Register(){
@@ -14,18 +15,22 @@ export function Register(){
     const [password,setPassword] = useState('');
     const [cnfpasswd,setCnfpasswd] = useState('');
 
+    const [captchaValue,setcaptchaValue] = useState(null);
+
     const isformFilled = ()=>{
         return fname && lname && email && password && cnfpasswd
     }
 
-    
-
-    
+    const onCaptchaChange = (token)=>{
+        setcaptchaValue(token)
+        console.log(token)
+    }
 
     const registerUser = (event)=>{
         event.preventDefault()
         axios.post("http://localhost:3000/register",
-            {   fname,
+        {   
+            fname,
             lname,
             email,
             password
@@ -39,14 +44,14 @@ export function Register(){
 
     }
     
-    
-    const inputStyle = "rounded h-1/2 w-3/4 size-1 font-mono text-sm pl-2 focus:outline-none hover:shadow"
+    const inputStyle = `rounded h-full w-full font-mono text-sm p-2.5 outline-none shadow shadow-slate-400 border-2 border-transparent transition-all ease-linear duration-300 
+                    focus:border-b-blue-800` 
     
     return(
     <>
         <Card>
-            <form onSubmit={registerUser}>
-            <div className='flex justify-center flex-col items-center space-y-4 p-3 h-full '>
+            <div className='flex flex-col justify-center items-center p-3 h-full space-y-5 w-full relative'>
+            <form onSubmit={registerUser} className='flex flex-col items-center space-y-4 p-3 w-full' >
 
                 <input 
                 placeholder='First Name'
@@ -83,19 +88,23 @@ export function Register(){
                 className={inputStyle}
                 />
 
-            </div>
-            
-            <button 
-            type = 'submit' 
-            disabled = {!isformFilled()}
-            className={`rounded-md font-mono text-sm h-10 w-15 p-2 absolute bg-[#D64045] bottom-0.5 left-0.5
-                        hover:: border-b-lime-600 
-                    ${!isformFilled() ? 'opacity-70 cursor-not-allowed' : ''} `} 
+                <button 
+                type = 'submit'
+                disabled = {!isformFilled()}
+                className={`rounded-md font-mono text-sm h-10 w-1/4 p-2 bg-blue-800 hover:bg-[#4C9F70] text-white
+                    shadow-lg shadow-blue-800 translate-y-5 transform-transition-all duration-300 
+                    easy-in-out hover:translate-y-1 active:bg-[#40875f]
+                    ${!isformFilled() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
+                    
                     >
                     Register
-            </button>
-
+                </button>
             </form>
+
+            <Captcha captchaFilled = {onCaptchaChange}>
+            </Captcha>
+
+            </div>
         </Card>
 
     </>

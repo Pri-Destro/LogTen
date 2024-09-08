@@ -1,22 +1,22 @@
+require('dotenv').config();
+require('./db/index');
+
 const express = require('express')
 const cors = require('cors')
-const {signupValidation} = require('./middlewares/validation')
+const {register} = require('./routes/register')
+const {login} = require('./routes/login')
+const {signupValidation,loginValidation} = require('./middlewares/validation')
 
-const bcrypt = require('bcrypt')
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-app.get('/',(req,res)=>{
-    res.send("hello world");
-})
+app.post("/login",loginValidation,login)
 
 app.post("/register",signupValidation,register)
-
 app.listen(PORT,() => {
 
     console.log("server started")
