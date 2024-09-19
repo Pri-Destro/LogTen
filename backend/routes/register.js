@@ -1,10 +1,11 @@
 console.log('in register.js ')
 const {User} = require('../db')
-
 const bcrypt = require('bcrypt')
+const express = require('express')
 
+const router = express.Router()
 
-const register = async (req,res)=>{
+router.post(async (req,res)=>{
 
     const firstName = req.body.fname;
     const lastName = req.body.lname;
@@ -12,9 +13,9 @@ const register = async (req,res)=>{
     const password = req.body.password;
 
     try{
-        const user = await User.findOne({email})
+        const userExist = await User.findOne({email})
 
-        if (user) {
+        if (userExist) {
             return res.status(409).json({
                 message : "User already exists, please Login"
             })       
@@ -38,9 +39,6 @@ const register = async (req,res)=>{
     res.status(200).json({
         msg : "user created successfully"
     })
-}
+})
 
-
-module.exports = {
-    register
-}
+module.exports = router

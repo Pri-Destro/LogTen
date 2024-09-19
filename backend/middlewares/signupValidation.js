@@ -3,7 +3,7 @@ const z = require('zod')
 
 const signupValidation = (req,res,next)=> {  
 
-    const passwordSchema = z.string()
+  const passwordSchema = z.string()
   .min(8, "Password must be at least 12 characters long")
   .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
@@ -36,29 +36,4 @@ const signupValidation = (req,res,next)=> {
     next()
 }
 
-
-const loginValidation = (req,res,next)=> {  
-    
-    const schema = z.object({
-        email: z.string().email({ message: "Invalid email address" }),
-        password: z.string()
-    });
-        
-    const schemaCheck = schema.safeParse(req.body);
-
-    if(!schemaCheck.success){
-        const errors = schemaCheck.error.errors.map(err => ({
-            field: err.path[0],
-            message: err.message,
-        }));
-
-        return res.json({errors})
-    }
-    
-        next()
-    }
-
-module.exports = {
-    signupValidation,
-    loginValidation
-}
+module.exports = signupValidation

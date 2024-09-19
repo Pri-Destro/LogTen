@@ -1,6 +1,7 @@
-import {Card} from './heroCard'
+import {Card} from '../components/heroCard'
 import {useState} from 'react'
-import Captcha from './captcha'
+import Captcha from '../components/captcha'
+
 import axios from 'axios'
 
 

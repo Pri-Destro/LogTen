@@ -1,7 +1,7 @@
-import {Card} from './heroCard'
+import {Card} from '../components/heroCard'
 import {useState} from 'react'
 import axios from 'axios'
-import Captcha from './captcha'
+import Captcha from '../components/captcha'
 
 
 export function Register(){
@@ -17,14 +17,24 @@ export function Register(){
 
     const [captchaValue,setcaptchaValue] = useState(null);
 
-    const isformFilled = ()=>{
+    const isformFilled = usememo(()=>{
         return fname && lname && email && password && cnfpasswd
-    }
+    },[cnfpasswd])
 
-    const onCaptchaChange = (token)=>{
+     const onCaptchaChange = (token)=>{
         setcaptchaValue(token)
         console.log(token)
     }
+
+    const doPassMatch = (password,cnfpasswd)=>{
+        return password === cnfpasswd
+    }
+
+    const isFormValid = ()=>{
+        return isformFilled && captchaValue!=null && doPassMatch
+    }
+
+
 
     const registerUser = (event)=>{
         event.preventDefault()
@@ -44,7 +54,7 @@ export function Register(){
 
     }
     
-    const inputStyle = `rounded h-full w-full font-mono text-sm p-2.5 outline-none shadow shadow-slate-400 border-2 border-transparent transition-all ease-linear duration-300 
+    const inputStyle = `rounded h-full w-full font-mono text-sm p-2.5 outline-none border-2 border-transparent transition-all ease-linear duration-300 
                     focus:border-b-blue-800` 
     
     return(
@@ -94,14 +104,14 @@ export function Register(){
                 className={`rounded-md font-mono text-sm h-10 w-1/4 p-2 bg-blue-800 hover:bg-[#4C9F70] text-white
                     shadow-lg shadow-blue-800 translate-y-5 transform-transition-all duration-300 
                     easy-in-out hover:translate-y-1 active:bg-[#40875f]
-                    ${!isformFilled() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
+                    ${!isFormValid() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
                     
                     >
                     Register
                 </button>
             </form>
 
-            <Captcha captchaFilled = {onCaptchaChange}>
+            <Captcha onVerify = {onCaptchaChange}>
             </Captcha>
 
             </div>
