@@ -1,15 +1,27 @@
-import {Register} from './components/register.jsx'
-import {Login} from './components/login.jsx'
+import {Register} from './pages/Register'
+import { Login } from "./pages/Login";
+import { Home } from "./pages/Home";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+
+} from "react-router-dom"
 
 function App() {
 
   return (
     <div>
+      <BrowserRouter>
       {console.log('app re render')}
-    <Register/>
-
+        <Routes>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/" element={<Home/>}/>        
+        </Routes>
+      </BrowserRouter>
   
-    </div>
+    </div>                                                    
 
   )
 }

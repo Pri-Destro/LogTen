@@ -1,7 +1,7 @@
-import {Card} from '../components/heroCard'
 import {useState} from 'react'
+import {Card} from '../components/heroCard'
 import Captcha from '../components/captcha'
-
+import BottomWarning from '../components/BottomWarning'
 import axios from 'axios'
 
 
@@ -16,6 +16,10 @@ export function Login(){
 
     const isformFilled = ()=>{
         return email && password
+    }
+
+    const isFormValid = ()=>{
+        return isformFilled && captchaValue!=null
     }
 
     
@@ -76,6 +80,8 @@ export function Login(){
             </form>
             <Captcha></Captcha>
             </div>
+
+            <BottomWarning label = "Don't have an account ? " linkText = "Register" to = "/register"></BottomWarning>
         </Card>
 
     </>

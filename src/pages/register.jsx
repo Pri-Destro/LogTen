@@ -2,6 +2,7 @@ import {Card} from '../components/heroCard'
 import {useState} from 'react'
 import axios from 'axios'
 import Captcha from '../components/captcha'
+import BottomWarning from '../components/BottomWarning'
 
 
 export function Register(){
@@ -114,6 +115,7 @@ export function Register(){
             <Captcha onVerify = {onCaptchaChange}>
             </Captcha>
 
+            <BottomWarning label = "Already have an account?" linkText = "Login" to = "/login"></BottomWarning>
             </div>
         </Card>
 
