@@ -11,8 +11,14 @@ export function Login(){
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const [captchaValue,setcaptchaValue] = useState(null);
 
 
+
+    const onCaptchaChange = (token)=>{
+        setcaptchaValue(token)
+        console.log(token)
+    }
 
     const isformFilled = ()=>{
         return email && password
@@ -41,12 +47,12 @@ export function Login(){
     }
 
 
-    const inputStyle = "rounded h-full w-full font-mono text-sm p-2.5 focus:outline-none shadow shadow-slate-400"
+    const inputStyle = "rounded h-full w-full font-mono text-sm p-2.5 outline-none border-2 border-transparent transition-all ease-linear duration-300 focus:border-b-blue-800"
     
     return(
-    <>
+    <div className='bg-[#0b0a2a] flex justify-center items-center h-screen'>
         <Card>
-            <div className='flex justify-center items-center p-3 h-full  w-full relative'>
+            <div className='flex flex-col justify-center items-center p-3 h-full space-y-5 w-full relative'>
             <form onSubmit={loginUser} className='flex flex-col space-y-4 items-center p-3 w-full' >
 
 
@@ -65,26 +71,27 @@ export function Login(){
                 />
 
 
+<Captcha onVerify = {onCaptchaChange}></Captcha>   
                 <button 
                 type = 'submit'
                 disabled = {!isformFilled()}
                 className={`rounded-md font-mono text-sm h-10 w-1/4 p-2 bg-[#272932] hover:bg-[#4C9F70] text-white
                     shadow-lg shadow-blue-800 translate-y-5 transform-transition-all duration-300 
                     easy-in-out hover:-translate-y-0 active:bg-[#40875f]
-                    ${!isformFilled() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
+                    ${!isFormValid() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
                     
                     >
                     Login
                     </button>
                 
             </form>
-            <Captcha></Captcha>
-            </div>
 
             <BottomWarning label = "Don't have an account ? " linkText = "Register" to = "/register"></BottomWarning>
+            </div>
+
         </Card>
 
-    </>
+    </div>
     )
 }
 
