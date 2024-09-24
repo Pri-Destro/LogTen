@@ -6,7 +6,7 @@ export default function ParticleBg(){
     useEffect(()=>{ 
         console.log('particle js renders')
 
-        window.particlesJS('particle-js',{
+        try{window.particlesJS('particle-js',{
 
             particles : {
                 number : {
@@ -61,7 +61,10 @@ export default function ParticleBg(){
         
         
         });
-
+    }catch(e) {
+        console.log(e + "Network Error , Failed to load Particle js")
+    }
+        
     },[])
 
 

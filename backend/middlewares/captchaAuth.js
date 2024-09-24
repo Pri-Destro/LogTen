@@ -1,5 +1,3 @@
-const express = require("express")
-
 const axios = require('axios');
 
 const verifyCaptcha = async (token) => {
@@ -13,7 +11,9 @@ const verifyCaptcha = async (token) => {
       }
     });
 
-    return response.data.success;
+    if (response.data.success) {
+      next();}
+    
     }catch (error) {
     console.error('Error verifying CAPTCHA:', error);
     return false;

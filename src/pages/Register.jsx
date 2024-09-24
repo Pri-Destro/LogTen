@@ -3,7 +3,7 @@ import {useState,useMemo} from 'react'
 import axios from 'axios'
 import Captcha from '../components/captcha'
 import BottomWarning from '../components/BottomWarning'
-
+import PageLayout from '../components/PageLayout'
 
 export function Register(){
 
@@ -22,7 +22,7 @@ export function Register(){
         return fname && lname && email && password && cnfpasswd
     }
 
-    console.log({isformFilled})
+    console.log(isformFilled())
 
      const onCaptchaChange = (token)=>{
         setcaptchaValue(token)
@@ -41,7 +41,7 @@ export function Register(){
 
     const registerUser = (event)=>{
         event.preventDefault()
-        axios.post("http://localhost:3000/register",
+        axios.post("http://localhost:3000/api/v1/register",
         {   
             fname,
             lname,
@@ -61,6 +61,8 @@ export function Register(){
                     focus:border-blue-800` 
     
     return(
+    <>
+    <PageLayout>
     <div className='bg-[#0b0a2a] flex justify-center items-center h-screen'>
 
         <Card>
@@ -103,7 +105,7 @@ export function Register(){
                 />
 
             {!doPassMatch(password, cnfpasswd) && (
-              <span className="text-red-600 text-md">Passwords do not match!</span>
+              <span className="text-red-600 text-md font-bold">Passwords do not match!</span>
             )}
 
                 <button 
@@ -112,7 +114,7 @@ export function Register(){
                 className={`rounded-md font-mono text-sm h-10 w-1/4 p-2 bg-blue-800 hover:bg-[#4C9F70] text-white
                     shadow-lg shadow-blue-800 translate-y-5 transform-transition-all duration-300 
                     easy-in-out hover:translate-y-1 active:bg-[#40875f]
-                    ${!isFormValid ? 'opacity-50 cursor-not-allowed ' : ''} `} 
+                    ${!isFormValid() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
                     
                     >
                     Register
@@ -127,6 +129,8 @@ export function Register(){
         </Card>
 
     </div>
+    </PageLayout>
+    </>
     )
 }
 
