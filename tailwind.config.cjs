@@ -10,7 +10,11 @@ module.exports = {
         'blue-800' : '#272932',
         'black' : '#172121',
         'yellow-100' : '#E9B44C'
-      }
+      },
+
+      fontFamily : {
+        'pacifico' : 'pacifico'
+      }, 
     },
   },
   plugins: [],

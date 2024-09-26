@@ -15,7 +15,7 @@ const TypingAnimation = ({ text, speed }) => {
     }
   }, [index, text, speed]);
 
-  return <div className='text-yellow-100 p-2 animate-pulse text-6xl font-mono text-center translate-y-32'>
+  return <div className='text-yellow-100 p-2 animate-pulse text-6xl font-pacifico text-center translate-y-32'>
     <p>{displayedText}</p>
     </div>;
 };

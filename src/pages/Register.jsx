@@ -4,6 +4,7 @@ import axios from 'axios'
 import Captcha from '../components/captcha'
 import BottomWarning from '../components/BottomWarning'
 import PageLayout from '../components/PageLayout'
+import FormButton from '../components/FormButton'
 
 export function Register(){
 
@@ -29,7 +30,8 @@ export function Register(){
         console.log(token)
     }
 
-    const doPassMatch = (password,cnfpasswd)=>{
+    const doPassMatch = (cnfpasswd)=>{
+        
         return password == cnfpasswd
     }
 
@@ -104,21 +106,12 @@ export function Register(){
                 className={inputStyle}
                 />
 
-            {!doPassMatch(password, cnfpasswd) && (
-              <span className="text-red-600 text-md font-bold">Passwords do not match!</span>
+            {!doPassMatch(cnfpasswd) && (
+              <span className="text-[#A72608] border-solid border-red-100 text-md font-bold">Passwords do not match!</span>
             )}
 
-                <button 
-                type = 'submit'
-                disabled = {!isformFilled()}
-                className={`rounded-md font-mono text-sm h-10 w-1/4 p-2 bg-blue-800 hover:bg-[#4C9F70] text-white
-                    shadow-lg shadow-blue-800 translate-y-5 transform-transition-all duration-300 
-                    easy-in-out hover:translate-y-1 active:bg-[#40875f]
-                    ${!isFormValid() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
-                    
-                    >
-                    Register
-                </button>
+            <FormButton label = "Register" fnName = {isFormValid()}></FormButton>
+
             </form>
 
 

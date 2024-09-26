@@ -4,6 +4,7 @@ import Captcha from '../components/captcha'
 import BottomWarning from '../components/BottomWarning'
 import PageLayout from '../components/PageLayout'
 import axios from 'axios'
+import FormButton from '../components/FormButton'
 
 
 export function Login(){
@@ -12,24 +13,24 @@ export function Login(){
     
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const [captchaValue,setcaptchaValue] = useState(null);
+    const [showPass, setShowPass] = useState(false)
     
     const inputStyle = "rounded h-full w-full font-mono text-sm p-2.5 outline-none border-2 border-transparent transition-all ease-linear duration-300 focus:border-b-blue-800"
 
 
-    const onCaptchaChange = (token)=>{
-        setcaptchaValue(token)
-        console.log(token)
-    }
+
 
     const isformFilled = ()=>{
         return email && password
     }
 
     const isFormValid = ()=>{
-        return isformFilled && captchaValue!=null
+        return isformFilled()
     }
 
+    const toggleShowPass = ()=>{
+        setShowPass(!showPass)
+    }
     
 
     const loginUser = (event)=>{
@@ -40,7 +41,8 @@ export function Login(){
             password
         },{
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json',
+                'Captcha-Token' : captchaValue
             }
         })
         .then(() => console.log("promise resolved data sent"))
@@ -48,13 +50,6 @@ export function Login(){
 
     }
 
-
-
-    const captchaAuth = ()=>{
-        axios.post("http://localhost:3000/register/")
-    }
-
-    
     return(
         <>
         <PageLayout>
@@ -78,20 +73,8 @@ export function Login(){
                 onChange={(e) => setPassword(e.target.value)}
                 className={inputStyle}
                 />
-
-
-            <Captcha onVerify = {onCaptchaChange}/>
-            <button 
-                type = 'submit'
-                disabled = {!isformFilled()}
-                className={`rounded-md font-mono text-sm h-10 w-1/4 p-2 bg-[#272932] hover:bg-[#4C9F70] text-white
-                    shadow-lg shadow-blue-800 translate-y-5 transform-transition-all duration-300 
-                    easy-in-out hover:-translate-y-0 active:bg-[#40875f]
-                    ${!isFormValid() ? 'opacity-50 cursor-not-allowed ' : ''} `} 
-                    
-                    >
-                    Login
-                    </button>
+                
+            <FormButton label = "Login" fnName = {isFormValid()}></FormButton>
                 
             </form>
 

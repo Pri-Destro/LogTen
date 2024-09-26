@@ -8,7 +8,7 @@ export function Home(){
     <PageLayout/>
         <div className = "h-1/2 p-6 pt-1.5">
             <TypingAnimation  
-            text = {` "HELLO! IS ANYBODY IN THERE?" `}
+            text = {` "Hello! Is Anybody In There?" `}
             speed = "100"/>
 
         </div>
